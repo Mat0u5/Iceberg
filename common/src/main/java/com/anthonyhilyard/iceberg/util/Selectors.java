@@ -10,15 +10,12 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NumericTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.TagParser;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -35,12 +32,33 @@ public class Selectors
 		put("epic", Rarity.EPIC);
 	}};
 
+	private static String getTagAsString(Tag tag) {
+		if (tag instanceof StringTag cast) return cast.toString();
+		if (tag instanceof ByteTag cast) return cast.toString();
+		if (tag instanceof ShortTag cast) return cast.toString();
+		if (tag instanceof IntTag cast) return cast.toString();
+		if (tag instanceof LongTag cast) return cast.toString();
+		if (tag instanceof FloatTag cast) return cast.toString();
+		if (tag instanceof DoubleTag cast) return cast.toString();
+		return "";
+	}
+
+	private static double getNumericTagAsDouble(NumericTag tag) {
+		if (tag instanceof ByteTag cast) return cast.doubleValue();
+		if (tag instanceof ShortTag cast) return cast.doubleValue();
+		if (tag instanceof IntTag cast) return cast.doubleValue();
+		if (tag instanceof LongTag cast) return cast.doubleValue();
+		if (tag instanceof FloatTag cast) return cast.doubleValue();
+		if (tag instanceof DoubleTag cast) return cast.doubleValue();
+		return 0;
+	}
+
 	private static Map<String, BiPredicate<Tag, String>> nbtComparators = new HashMap<String, BiPredicate<Tag, String>>() {{
 		put("=",  (tag, value) -> {
-			return tag.getAsString().contentEquals(value);
+			return getTagAsString(tag).contentEquals(value);
 		});
 
-		put("!=", (tag, value) -> !tag.getAsString().contentEquals(value));
+		put("!=", (tag, value) -> !getTagAsString(tag).contentEquals(value));
 
 		put(">",  (tag, value) -> {
 			try
@@ -48,7 +66,7 @@ public class Selectors
 				double parsedValue = Double.valueOf(value);
 				if (tag instanceof NumericTag)
 				{
-					return ((NumericTag)tag).getAsDouble() > parsedValue;
+					return getNumericTagAsDouble((NumericTag)tag) > parsedValue;
 				}
 				else
 				{
@@ -67,7 +85,7 @@ public class Selectors
 				double parsedValue = Double.valueOf(value);
 				if (tag instanceof NumericTag)
 				{
-					return ((NumericTag)tag).getAsDouble() < parsedValue;
+					return getNumericTagAsDouble((NumericTag)tag) < parsedValue;
 				}
 				else
 				{
@@ -138,7 +156,7 @@ public class Selectors
 		// This is a tag, which should be a resource location.
 		if (value.startsWith("$"))
 		{
-			return ResourceLocation.tryParse(value.substring(1)) != null;
+			return Identifier.tryParse(value.substring(1)) != null;
 		}
 		// Mod IDs need to conform to this regex: ^[a-z][a-z0-9_-]{1,63}$
 		else if (value.startsWith("@"))
@@ -168,7 +186,7 @@ public class Selectors
 		// Otherwise it's an item, so just make sure it's a value resource location.
 		else
 		{
-			return value == null || value == "" || ResourceLocation.tryParse(value) != null;
+			return value == null || value == "" || Identifier.tryParse(value) != null;
 		}
 	}
 
@@ -212,15 +230,15 @@ public class Selectors
 		}
 
 		// Item ID
-		String itemResourceLocation = BuiltInRegistries.ITEM.getKey(item.getItem()).toString();
-		if (selector.equals(itemResourceLocation) || selector.equals(itemResourceLocation.replace("minecraft:", "")))
+		String itemIdentifier = BuiltInRegistries.ITEM.getKey(item.getItem()).toString();
+		if (selector.equals(itemIdentifier) || selector.equals(itemIdentifier.replace("minecraft:", "")))
 		{
 			return true;
 		}
 		// Mod ID
 		else if (selector.startsWith("@"))
 		{
-			if (itemResourceLocation.startsWith(selector.substring(1) + ":"))
+			if (itemIdentifier.startsWith(selector.substring(1) + ":"))
 			{
 				return true;
 			}
@@ -245,7 +263,7 @@ public class Selectors
 		// Item tag
 		else if (selector.startsWith("$"))
 		{
-			Optional<TagKey<Item>> matchingTag = BuiltInRegistries.ITEM.getTagNames().filter(tagKey -> tagKey.location().equals(ResourceLocation.parse(selector.substring(1)))).findFirst();
+			Optional<TagKey<Item>> matchingTag = BuiltInRegistries.ITEM.getTags().map(HolderSet.Named::key).filter(tagKey -> tagKey.location().equals(Identifier.parse(selector.substring(1)))).findFirst();
 			if (matchingTag.isPresent() && item.is(matchingTag.get()))
 			{
 				return true;
@@ -301,7 +319,7 @@ public class Selectors
 			}
 
 			// Look for a tag matching the given name and value.
-			Tag itemTag = item.save(provider);
+			Tag itemTag = ItemStack.CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), item).getOrThrow();
 
 			boolean result = findMatchingSubtag(itemTag, name, value, valueChecker);
 
@@ -362,7 +380,7 @@ public class Selectors
 		{
 			try
 			{
-				tag = TagParser.parseTag(tag.getAsString());
+				tag = TagParser.parseCompoundFully(getTagAsString(tag));
 			}
 			catch (Exception e)
 			{
@@ -389,21 +407,22 @@ public class Selectors
 			}
 			else
 			{
-				for (String innerKey : compoundTag.getAllKeys())
+				for (String innerKey : compoundTag.keySet())
 				{
-					if (compoundTag.getTagType(innerKey) == Tag.TAG_LIST || compoundTag.getTagType(innerKey) == Tag.TAG_COMPOUND)
+					Tag innerTag = compoundTag.get(innerKey);
+					if (innerTag instanceof ListTag || innerTag instanceof CompoundTag)
 					{
-						if (findMatchingSubtag(compoundTag.get(innerKey), key, value, valueChecker))
+						if (findMatchingSubtag(innerTag, key, value, valueChecker))
 						{
 							return true;
 						}
 					}
-					else if (compoundTag.getTagType(innerKey) == Tag.TAG_STRING)
+					else if (innerTag instanceof StringTag)
 					{
 						try
 						{
-							tag = TagParser.parseTag(tag.getAsString());
-							if (findMatchingSubtag(compoundTag.get(innerKey), key, value, valueChecker))
+							tag = TagParser.parseCompoundFully(getTagAsString(innerTag));
+							if (findMatchingSubtag(innerTag, key, value, valueChecker))
 							{
 								return true;
 							}
