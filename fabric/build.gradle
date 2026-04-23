@@ -37,7 +37,7 @@ dependencies {
 	modImplementation "com.electronwill.night-config:core:${project.nightconfigVersion}"
 	modImplementation "com.electronwill.night-config:toml:${project.nightconfigVersion}"
 
-	modImplementation files("../libs/sodium-fabric-0.6.0-beta.2+mc1.21.1.jar")
+	modImplementation "maven.modrinth:sodium:${project.sodiumVersion}"
 
 	modImplementation "curse.maven:modern-keybinding-fabric-695433:6016136"
 
