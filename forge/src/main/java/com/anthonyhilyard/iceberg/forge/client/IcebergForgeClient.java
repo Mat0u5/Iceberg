@@ -1,5 +1,6 @@
 package com.anthonyhilyard.iceberg.forge.client;
 
+import com.anthonyhilyard.iceberg.Iceberg;
 import com.anthonyhilyard.iceberg.events.client.RegisterTooltipComponentFactoryEvent;
 import com.anthonyhilyard.iceberg.events.client.RenderTooltipEvents;
 import com.anthonyhilyard.iceberg.events.client.RenderTooltipEvents.ColorExtResult;
@@ -16,15 +17,17 @@ import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.Priority;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 public class IcebergForgeClient
 {
+	@Mod.EventBusSubscriber(modid = Iceberg.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public static class ForgeEvents
 	{
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void event(ItemTooltipEvent event)
 		{
 			Minecraft minecraft = Minecraft.getInstance();
@@ -32,7 +35,7 @@ public class IcebergForgeClient
 		}
 
 		/* //TODO tooltips
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void tooltipPreRenderEvent(RenderTooltipEvent.Pre event)
 		{
 			TooltipRenderContext context = Tooltips.getCurrentRenderContext();
@@ -43,7 +46,7 @@ public class IcebergForgeClient
 			event.setCanceled(result.result() != InteractionResult.PASS);
 		}
 
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void tooltipColorEvent(RenderTooltipEvent.Color event)
 		{
 			ColorExtResult result = RenderTooltipEvents.COLOREXT.invoker().onColor(event.getItemStack(), event.getGraphics(), event.getX(), event.getY(), event.getFont(), event.getBackgroundStart(), event.getBackgroundEnd(), event.getBorderStart(), event.getBorderEnd(), event.getComponents(), false, 0);
@@ -53,7 +56,7 @@ public class IcebergForgeClient
 			event.setBorderEnd(result.borderEnd());
 		}
 
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void tooltipGatherEvent(RenderTooltipEvent.GatherComponents event)
 		{
 			GatherResult result = RenderTooltipEvents.GATHER.invoker().onGather(event.getItemStack(), event.getScreenWidth(), event.getScreenHeight(), event.getTooltipElements(), event.getMaxWidth(), 0);
@@ -63,9 +66,10 @@ public class IcebergForgeClient
 		 */
 	}
 
+	@Mod.EventBusSubscriber(modid = Iceberg.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 	public static class ModEvents
 	{
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void registerTooltipComponentsEvent(RegisterClientTooltipComponentFactoriesEvent event)
 		{
 			for (Class<? extends TooltipComponent> type : RegisterTooltipComponentFactoryEvent.EVENT.getListenerTypes().keySet())
@@ -74,13 +78,13 @@ public class IcebergForgeClient
 			}
 		}
 
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void configLoadEvent(ModConfigEvent.Loading event)
 		{
 			ConfigEvents.LOAD.invoker().onLoad(event.getConfig().getModId());
 		}
 
-		@SubscribeEvent(priority = EventPriority.HIGH)
+		@SubscribeEvent(priority = Priority.HIGH)
 		public static void configReloadEvent(ModConfigEvent.Reloading event)
 		{
 			ConfigEvents.RELOAD.invoker().onReload(event.getConfig().getModId());
