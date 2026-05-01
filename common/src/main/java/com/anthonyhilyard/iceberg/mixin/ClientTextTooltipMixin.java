@@ -55,14 +55,14 @@ public class ClientTextTooltipMixin implements IExtendedText
 	@Override
 	public int getBottomPadding() { return bottomPadding; }
 
-	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 1)
+	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 2)
 	private Font getFont(Font font)
 	{
 		currentFont = font;
 		return font;
 	}
 
-	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 2)
+	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 3)
 	private int modifyHorizontalOffset(int xOriginal)
 	{
 		if (currentFont == null)
@@ -74,7 +74,7 @@ public class ClientTextTooltipMixin implements IExtendedText
 		return xOriginal + Tooltips.getTitleOffset(tooltipWidth, currentFont.width(((ClientTextTooltip)(Object)this).text), leftPadding, rightPadding, textAlignment);
 	}
 
-	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 3)
+	@ModifyVariable(method = "renderText", at = @At(value = "LOAD"), argsOnly = true, index = 4)
 	private int modifyVerticalOffset(int yOriginal)
 	{
 		if (currentFont == null)

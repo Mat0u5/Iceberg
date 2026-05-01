@@ -17,6 +17,7 @@ public class GuiMixin
 	@Inject(method = "render", at = @At("HEAD"))
 	private void resetTooltipsVisible(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo info)
 	{
-		Tooltips.setAnyTooltipsVisible(false);
+		//TODO tooltips
+		//Tooltips.setAnyTooltipsVisible(false);
 	}
 }

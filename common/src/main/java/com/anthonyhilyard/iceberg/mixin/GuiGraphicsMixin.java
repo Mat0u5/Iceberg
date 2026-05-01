@@ -27,8 +27,14 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositione
 import net.minecraft.world.item.ItemStack;
 
 @Mixin(value = GuiGraphics.class, priority = 1001)
-public class GuiGraphicsMixin implements ITooltipAccess
+public class GuiGraphicsMixin// implements ITooltipAccess
 {
+	/** //TODO tooltips
+	 * 1.21.11 renders tooltips as full sprites, disabled for now.
+	 * Recommended fix is to write an entire new tooltip rendering engine.
+	 */
+
+	/*
 	@Unique
 	private static Field tooltipStackField = null;
 
@@ -105,6 +111,7 @@ public class GuiGraphicsMixin implements ITooltipAccess
 
 		return ItemStack.EMPTY;
 	}
+
 
 	@ModifyArg(method = "renderTooltipInternal",
 			   at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/tooltip/ClientTooltipPositioner;positionTooltip(IIIIII)Lorg/joml/Vector2ic;"), index = 4)
@@ -192,4 +199,5 @@ public class GuiGraphicsMixin implements ITooltipAccess
 		setIcebergTooltipStack(ItemStack.EMPTY);
 		Tooltips.setCurrentRect(0, 0, 0, 0);
 	}
+	 */
 }
