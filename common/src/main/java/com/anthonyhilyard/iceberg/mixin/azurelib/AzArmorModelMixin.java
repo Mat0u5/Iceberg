@@ -1,5 +1,11 @@
 package com.anthonyhilyard.iceberg.mixin.azurelib;
 
+/**
+ * AzureLib is not available for version 1.21.11
+ * Making this code compatible is not necessary right now.
+ */
+
+/*
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,7 +24,6 @@ import mod.azure.azurelib.rewrite.render.armor.AzArmorRendererPipelineContext;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.LivingEntity;
 
 
@@ -66,6 +71,4 @@ public class AzArmorModelMixin<E extends LivingEntity>
 		}
 	}
 }
-
-
-
+*/

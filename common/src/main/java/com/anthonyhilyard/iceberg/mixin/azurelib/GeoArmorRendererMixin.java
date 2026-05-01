@@ -1,5 +1,11 @@
 package com.anthonyhilyard.iceberg.mixin.azurelib;
 
+/**
+ * AzureLib is not available for version 1.21.11
+ * Making this code compatible is not necessary right now.
+ */
+
+/*
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -60,6 +66,4 @@ public class GeoArmorRendererMixin<T extends Item & GeoItem>
 		}
 	}
 }
-
-
-
+*/

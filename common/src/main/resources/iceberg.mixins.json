@@ -5,17 +5,10 @@
 	"plugin": "com.anthonyhilyard.iceberg.mixin.MixinConfig",
 	"mixins": [
 		"PlayerAdvancementsMixin",
-		"ItemMixin"
+		"ItemMixin",
+		"LivingEntityMixin"
 	],
 	"client": [
-		"azurelib.AzArmorModelMixin",
-		"azurelib.GeoArmorRendererMixin",
-		"azurelib.HumanoidArmorLayerMixin",
-		"azurelib.ItemArmorGeoLayerMixin",
-		"azurelibarmor.AzArmorModelMixin",
-		"azurelibarmor.GeoArmorRendererMixin",
-		"azurelibarmor.HumanoidArmorLayerMixin",
-		"azurelibarmor.ItemArmorGeoLayerMixin",
 		"geckolib.GeoArmorRendererMixin",
 		"ScreenMixin",
 		"ClientPacketListenerMixin",
@@ -24,7 +17,6 @@
 		"MinecraftMixin",
 		"TooltipRenderUtilMixin",
 		"GuiMixin",
-		"GuiGraphicsInvoker",
 		"GuiGraphicsMixin"
 	],
 	"injectors": {

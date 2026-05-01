@@ -1,5 +1,11 @@
 package com.anthonyhilyard.iceberg.mixin.azurelib;
 
+/**
+ * AzureLib is not available for version 1.21.11
+ * Making this code compatible is not necessary right now.
+ */
+
+/*
 import java.lang.reflect.Field;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,3 +64,4 @@ public class HumanoidArmorLayerMixin<T extends LivingEntity, A extends HumanoidM
 		catch (Exception e) {}
 	}
 }
+*/

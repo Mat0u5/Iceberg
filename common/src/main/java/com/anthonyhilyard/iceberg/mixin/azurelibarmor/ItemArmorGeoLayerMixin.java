@@ -1,5 +1,12 @@
 package com.anthonyhilyard.iceberg.mixin.azurelibarmor;
 
+/**
+ * AzureLib Armor is not available for version 1.21.11
+ * Making this code compatible is not necessary right now.
+ */
+
+/*
+
 import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -65,3 +72,4 @@ public class ItemArmorGeoLayerMixin
 		return bufferSource;
 	}
 }
+*/
