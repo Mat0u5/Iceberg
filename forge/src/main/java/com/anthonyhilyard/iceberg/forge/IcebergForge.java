@@ -27,17 +27,10 @@ public final class IcebergForge
 	{
 		IcebergForge.context = context;
 
-		// Common environment-agnostic setup.
-		MinecraftForge.EVENT_BUS.register(IcebergForgeCommon.class);
-
 		if (FMLEnvironment.dist == Dist.CLIENT)
 		{
 			// Client loader-agnostic setup.
 			IcebergClient.init();
-		}
-		else
-		{
-			MinecraftForge.EVENT_BUS.register(IcebergForgeServer.class);
 		}
 	}
 
