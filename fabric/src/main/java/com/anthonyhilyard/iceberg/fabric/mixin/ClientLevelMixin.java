@@ -21,9 +21,9 @@ import net.minecraft.world.level.dimension.DimensionType;
 @Mixin(ClientLevel.class)
 public class ClientLevelMixin
 {
-	@Inject(method = "<init>(Lnet/minecraft/client/multiplayer/ClientPacketListener;Lnet/minecraft/client/multiplayer/ClientLevel$ClientLevelData;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/Holder;IILjava/util/function/Supplier;Lnet/minecraft/client/renderer/LevelRenderer;ZJ)V",
+	@Inject(method = "<init>",
 			at = @At("TAIL"))
-	private void levelLoadOnInit(ClientPacketListener clientPacketListener, ClientLevelData clientLevelData, ResourceKey<Level> resourceKey, Holder<DimensionType> holder, int i, int j, Supplier<ProfilerFiller> supplier, LevelRenderer levelRenderer, boolean bl, long l, CallbackInfo info)
+	private void levelLoadOnInit(ClientPacketListener clientPacketListener, ClientLevelData clientLevelData, ResourceKey resourceKey, Holder holder, int i, int j, LevelRenderer levelRenderer, boolean bl, long l, int k, CallbackInfo ci)
 	{
 		LevelEvents.LOAD.invoker().onLoad((ClientLevel)(Object)this);
 	}
