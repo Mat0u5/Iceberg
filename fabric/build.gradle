@@ -37,7 +37,7 @@ dependencies {
 	modImplementation "com.electronwill.night-config:core:${project.nightconfigVersion}"
 	modImplementation "com.electronwill.night-config:toml:${project.nightconfigVersion}"
 
-	modImplementation "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
+	modImplementation "maven.modrinth:sodium:mc1.21.11-0.8.7-fabric"
 
 	// Modern Keybinding does not have versions past 1.21.4, keeping modCompileOnly for now. Consider removing the dependency if the mod has been abandoned.
 	modCompileOnly "curse.maven:modern-keybinding-fabric-695433:6016136"

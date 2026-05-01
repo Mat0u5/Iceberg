@@ -41,9 +41,7 @@ public class FabricBufferSourceFactory implements IBufferSourceFactory
 					public VertexConsumer setColor(int r, int g, int b, int a) { return vertexConsumer.setColor(r, g, b, a); }
 
 					@Override
-					public VertexConsumer setColor(int i) {
-						return null;
-					}
+					public VertexConsumer setColor(int i) { return vertexConsumer.setColor(i); }
 
 					@Override
 					public VertexConsumer setUv(float u, float v) { return vertexConsumer.setUv(u, v); }
@@ -58,9 +56,7 @@ public class FabricBufferSourceFactory implements IBufferSourceFactory
 					public VertexConsumer setNormal(float x, float y, float z) { return vertexConsumer.setNormal(x, y, z); }
 
 					@Override
-					public VertexConsumer setLineWidth(float f) {
-						return null;
-					}
+					public VertexConsumer setLineWidth(float f) { return vertexConsumer.setLineWidth(f); }
 
 					@Override
 					public void push(MemoryStack memoryStack, long pointer, int count, VertexFormat format)
