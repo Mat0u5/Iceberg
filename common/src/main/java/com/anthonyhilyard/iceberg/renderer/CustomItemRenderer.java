@@ -28,8 +28,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.pipeline.MainTarget;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
@@ -39,17 +37,13 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.block.BlockModelShaper;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,17 +52,13 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.AnimalArmorItem.BodyType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HalfTransparentBlock;
@@ -85,6 +75,10 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
  */
 public class CustomItemRenderer extends ItemRenderer
 {
+	/**
+	 * This will also require basically a full rewrite, disabling for now.
+	 */
+	/*
 	private static CustomItemRenderer INSTANCE = null;
 	public static CustomItemRenderer getInstance()
 	{
@@ -97,7 +91,7 @@ public class CustomItemRenderer extends ItemRenderer
 		return INSTANCE;
 	}
 
-	/* Cylindrical bounds for a model. */
+	// Cylindrical bounds for a model.
 	private record ModelBounds(Vector3f center, float height, float radius) {}
 
 	private static RenderTarget iconFrameBuffer = null;
@@ -787,5 +781,5 @@ public class CustomItemRenderer extends ItemRenderer
 		// Clear the model bounds cache.
 		modelBoundsCache.clear();
 	}
-
+	*/
 }

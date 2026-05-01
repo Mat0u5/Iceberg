@@ -1,5 +1,6 @@
 package com.anthonyhilyard.iceberg.neoforge.services;
 
+import net.caffeinemc.mods.sodium.api.vertex.buffer.VertexBufferWriter;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;

@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 public class TitleBreakComponent implements TooltipComponent, ClientTooltipComponent
 {
 	@Override
-	public int getHeight() { return 0; }
+	public int getHeight(Font font) { return 0; }
 
 	@Override
 	public int getWidth(Font font) { return 0; }
