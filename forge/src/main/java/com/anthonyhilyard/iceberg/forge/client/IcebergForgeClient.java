@@ -31,6 +31,7 @@ public class IcebergForgeClient
 			com.anthonyhilyard.iceberg.events.client.ItemTooltipEvent.EVENT.invoker().onItemTooltip(event.getItemStack(), TooltipContext.of(minecraft.level), event.getFlags(), event.getToolTip());
 		}
 
+		/* //TODO tooltips
 		@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void tooltipPreRenderEvent(RenderTooltipEvent.Pre event)
 		{
@@ -59,6 +60,7 @@ public class IcebergForgeClient
 			event.setMaxWidth(result.maxWidth());
 			event.setCanceled(result.result() != InteractionResult.PASS);
 		}
+		 */
 	}
 
 	public static class ModEvents

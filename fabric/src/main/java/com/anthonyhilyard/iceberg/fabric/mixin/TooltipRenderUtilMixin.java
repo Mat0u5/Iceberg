@@ -16,6 +16,12 @@ import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 @Mixin(TooltipRenderUtil.class)
 public class TooltipRenderUtilMixin
 {
+	/**
+	 * //TODO tooltips
+	 * 1.21.11 renders tooltips as full sprites, disabled for now.
+	 * Recommended fix is to write an entire new tooltip rendering engine.
+	 */
+	/*
 	@Unique
 	private static Field horizontalLineColorField = null;
 
@@ -48,4 +54,5 @@ public class TooltipRenderUtilMixin
 		}
 		catch (Exception e) {}
 	}
+	 */
 }

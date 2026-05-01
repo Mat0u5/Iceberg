@@ -14,8 +14,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTextTooltip;
 
 @Mixin(ClientTextTooltip.class)
-public class ClientTextTooltipMixin implements IExtendedText
+public class ClientTextTooltipMixin// implements IExtendedText
 {
+	/**
+	 * //TODO tooltips
+	 * 1.21.11 renders tooltips as full sprites, disabled for now.
+	 * Recommended fix is to write an entire new tooltip rendering engine.
+	 */
+	/*
 	@Unique
 	Font currentFont;
 
@@ -98,5 +104,5 @@ public class ClientTextTooltipMixin implements IExtendedText
 		int result = topPadding + defaultHeight + bottomPadding;
 		info.setReturnValue(result);
 	}
-
+	*/
 }

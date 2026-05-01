@@ -18,6 +18,12 @@ import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 @Mixin(TooltipRenderUtil.class)
 public class TooltipRenderUtilMixin
 {
+	/**
+	 * //TODO tooltips
+	 * 1.21.11 renders tooltips as full sprites, disabled for now.
+	 * Recommended fix is to write an entire new tooltip rendering engine.
+	 */
+	/*
 	@Shadow
 	@Final
 	private static int BACKGROUND_COLOR;
@@ -70,4 +76,5 @@ public class TooltipRenderUtilMixin
 			info.cancel();
 		}
 	}
+	 */
 }

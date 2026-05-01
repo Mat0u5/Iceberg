@@ -38,6 +38,7 @@ public class IcebergNeoForgeClient
 	private static boolean vanillaGatherEvent = false;
 	public static class NeoForgeEvents
 	{
+		/* //TODO tooltips
 		@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void itemTooltipEvent(ItemTooltipEvent event)
 		{
@@ -55,7 +56,6 @@ public class IcebergNeoForgeClient
 			event.setY(result.y());
 			event.setCanceled(result.result() != InteractionResult.PASS);
 		}
-
 		@SubscribeEvent(priority = EventPriority.HIGHEST)
 		public static void tooltipColorEvent(RenderTooltipEvent.Color event)
 		{
@@ -66,7 +66,6 @@ public class IcebergNeoForgeClient
 			event.setBorderStart(result.borderStart());
 			event.setBorderEnd(result.borderEnd());
 		}
-
 		@SubscribeEvent(priority = EventPriority.HIGH)
 		public static void tooltipGatherEvent(RenderTooltipEvent.GatherComponents event)
 		{
@@ -77,6 +76,7 @@ public class IcebergNeoForgeClient
 			event.setCanceled(result.result() != InteractionResult.PASS);
 			vanillaGatherEvent = false;
 		}
+		*/
 	}
 
 	public static class ModEvents

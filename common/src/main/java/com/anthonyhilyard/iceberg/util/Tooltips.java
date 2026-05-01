@@ -14,7 +14,6 @@ import com.anthonyhilyard.iceberg.component.IExtendedText.TextAlignment;
 import com.anthonyhilyard.iceberg.events.client.RegisterTooltipComponentFactoryEvent;
 import com.anthonyhilyard.iceberg.events.client.RenderTooltipEvents;
 import com.anthonyhilyard.iceberg.events.client.RenderTooltipEvents.GatherResult;
-import com.anthonyhilyard.iceberg.mixin.GuiGraphicsInvoker;
 import com.mojang.datafixers.util.Either;
 
 import net.minecraft.client.gui.Font;
@@ -291,10 +290,10 @@ public class Tooltips
 		// Set the current render context.
 		currentRenderContext = new TooltipRenderContext(rect.getWidth(), rect.getHeight(), comparison, index);
 
-		if (graphics instanceof GuiGraphicsInvoker graphicsInvoker && graphics instanceof ITooltipAccess tooltipAccess)
+		if (graphics instanceof ITooltipAccess tooltipAccess)
 		{
 			tooltipAccess.setIcebergTooltipStack(stack);
-			graphicsInvoker.invokeRenderTooltipInternal(font, components, rect.getX() + 2, rect.getY(), new TooltipRectPositioner(rect));
+			graphics.renderTooltip(font, components, rect.getX() + 2, rect.getY(), new TooltipRectPositioner(rect), null);
 			tooltipAccess.setIcebergTooltipStack(ItemStack.EMPTY);
 		}
 
@@ -453,11 +452,11 @@ public class Tooltips
 		TooltipRenderContext prevContext = currentRenderContext;
 		currentRenderContext = CALCULATE_RECT_CONTEXT;
 
-		if (graphics instanceof GuiGraphicsInvoker graphicsInvoker && graphics instanceof ITooltipAccess tooltipAccess)
+		if (graphics instanceof ITooltipAccess tooltipAccess)
 		{
 			ItemStack prevStack = tooltipAccess.getIcebergTooltipStack();
 			tooltipAccess.setIcebergTooltipStack(stack);
-			graphicsInvoker.invokeRenderTooltipInternal(font, components, mouseX, mouseY, positioner);
+			graphics.renderTooltip(font, components, mouseX, mouseY, positioner, null);
 			tooltipAccess.setIcebergTooltipStack(prevStack);
 		}
 
