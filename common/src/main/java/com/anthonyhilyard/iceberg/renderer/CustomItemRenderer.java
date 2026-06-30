@@ -428,6 +428,9 @@ public class CustomItemRenderer
 		{
 			collectedEntity = collectedEntities.get(0);
 		}
+		if (collectedEntity != null) {
+			collectedEntity.setId(1);
+		}
 		return collectedEntity;
 	}
 
